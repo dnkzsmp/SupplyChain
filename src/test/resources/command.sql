@@ -1,0 +1,2 @@
+insert into users (name, surname, age, email, brand) values ('Вася', 'Кузнецов', 24, 'stadst@mail.ru', 'Samsung');
+insert into users (name, surname, age, email, brand) values ('Олеся', 'Скворцова', 20, 'olesya12@yandex.ru', 'BlackBerry');
