@@ -1,5 +1,7 @@
 package com.curs.database;
 
+import com.curs.user.User;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -23,35 +25,15 @@ public class DBaseAdmin {
         }
     }
 
-    public void setNewUserInDB(int quantity) throws SQLException {
+    public void setNewUserInDB(User user) throws SQLException {
         try {
             System.out.println("Устанавливаем соединение с БД");
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            User user = new User();
-            Scanner scanner = new Scanner(System.in);
-            int counter = 0;
-            do {
-                if (quantity <= 0) {
-                    System.out.println("Кол-во пользователей должно быть >= 1");
-                    break;
-                }
-                System.out.println("Имя пользователя: ");
-                user.setName(scanner.next());
-                System.out.println("Фамилия пользователя: ");
-                user.setSurname(scanner.next());
-                System.out.println("Возраст пользователя: ");
-                user.setAge(scanner.nextInt());
-                System.out.println("Почта пользователя: ");
-                user.setEmail(scanner.next());
-                System.out.println("Предпочитаемый брэнд: ");
-                user.setBrand(scanner.next());
-                saveData(user.getName(), user.getSurname(), user.getAge(), user.getEmail(), user.getBrand());
-                counter++;
-            } while (counter < quantity);
         } catch (Exception ex) {
             System.out.println("Ошибка подключения к БД (DBaseAdmin.setNewUserInDB)");
             ex.printStackTrace();
         } finally {
+            saveData(user.getName(), user.getSurname(), user.getAge(), user.getEmail(), user.getBrand());
             connection.close();
             System.out.println("Закрыли соединение с БД");
         }
