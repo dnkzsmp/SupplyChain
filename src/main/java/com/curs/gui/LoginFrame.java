@@ -43,12 +43,7 @@ public class LoginFrame extends JFrame {
                     case "user":
                         if (textFieldPassword.getText().equals("user")) {
                             setVisible(false);
-                            UserFrame frame = null;
-                            try {
-                                frame = new UserFrame();
-                            } catch (SQLException throwables) {
-                                throwables.printStackTrace();
-                            }
+                            JFrame frame = new UserFrame();
                             frame.setVisible(true);
                         } else {
                             labelCorrect.setText("Неверный пароль");
@@ -58,7 +53,8 @@ public class LoginFrame extends JFrame {
                     case "admin":
                         if (textFieldPassword.getText().equals("admin")) {
                             setVisible(false);
-                            //UserFrame one = new UserFrame();
+                            JFrame admin = null;
+                            admin.setVisible(true);
                         } else {
                             labelCorrect.setText("Неверный пароль");
                             labelCorrect.setForeground(Color.red);
