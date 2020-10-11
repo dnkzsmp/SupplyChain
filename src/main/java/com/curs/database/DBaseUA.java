@@ -1,11 +1,13 @@
 package com.curs.database;
 
+import com.curs.gui.DataBaseUser;
 import com.curs.user.User;
+
 import java.sql.*;
 
-public class DBaseUser {
+public class DBaseUA {
     private Connection connection = null;
-    private final String URL = "jdbc:mysql://localhost:3306/curs";
+    private final String URL = "jdbc:mysql://localhost:3306/curs?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private final String USERNAME = "danil";
     private final String PASSWORD = "root";
 
@@ -28,7 +30,7 @@ public class DBaseUser {
             System.out.println("Устанавливаем соединение с БД");
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception ex) {
-            System.out.println("Ошибка подключения к БД (DBaseUser.setNewUserInDB)");
+            System.out.println("Ошибка подключения к БД (DBaseUA.setNewUserInDB)");
             ex.printStackTrace();
         } finally {
             saveData(user.getName(), user.getSurname(), user.getAge(), user.getEmail(), user.getBrand());
@@ -42,18 +44,18 @@ public class DBaseUser {
             System.out.println("Устанавливаем соединение с БД");
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception ex) {
-            System.out.println("Ошибка подключения к БД (DBaseUser.ChangeDataInDB)");
+            System.out.println("Ошибка подключения к БД (DBaseUA.ChangeDataInDB)");
             ex.printStackTrace();
         } finally {
-            String sql = "update users set name = '" + arr[0] +
+            String sql = "UPDATE users SET name = '" + arr[0] +
                     "', surname = '" + arr[1] +
                     "', age = " + arr[2] +
                     ", email = '" + arr[3] +
                     "', brand = '" + arr[4] +
-                    "' where name = '" + user.getName() +
-                    "' and surname = '" + user.getSurname() +
-                    "' and age = " + user.getAge() +
-                    " and email = '" + user.getEmail() + "';";
+                    "' WHERE name = '" + user.getName() +
+                    "' AND surname = '" + user.getSurname() +
+                    "' AND age = " + user.getAge() +
+                    " AND email = '" + user.getEmail() + "'";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.execute();
             } catch (SQLException ex) {
@@ -64,33 +66,7 @@ public class DBaseUser {
         }
     }
 
-    public void showDbFull() throws SQLException {
-        Statement statement;
-        ResultSet resultSet;
-        String value;
-        String SQL = "select * from users;";
-        try {
-            System.out.println("Устанавливаем соединение с БД");
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(SQL);
-            while (resultSet.next()) {
-                value = resultSet.getString("name");
-                System.out.print(value + "\t");
-                value = resultSet.getString("surname");
-                System.out.print(value + "\t");
-                value = resultSet.getString("age");
-                System.out.print(value + "\t");
-                value = resultSet.getString("email");
-                System.out.print(value + "\t");
-                value = resultSet.getString("brand");
-                System.out.println(value);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            connection.close();
-            System.out.println("Закрыли соединение с БД");
-        }
+    public void showDataBaseUser() throws SQLException {
+        new DataBaseUser().setVisible(true);
     }
 }
