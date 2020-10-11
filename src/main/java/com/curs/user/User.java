@@ -7,8 +7,6 @@ public class User {
     private String email;
     private String brand;
 
-    public User() {}
-
     public User(String name, String surname, int age, String email, String brand) {
         this.name = name;
         this.surname = surname;
