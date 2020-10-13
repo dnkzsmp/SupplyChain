@@ -64,11 +64,6 @@ public class UserFrame extends JFrame {
                             arrOfTextFields[3] = textFieldEmail.getText();
                             arrOfTextFields[4] = textFieldPrice.getText();
                             User user = people.get(userNumber);
-                            user.setName(textFieldName.getText());
-                            user.setSurname(textFieldSurname.getText());
-                            user.setAge(Integer.parseInt(textFieldAge.getText()));
-                            user.setEmail(textFieldEmail.getText());
-                            user.setPrice(Integer.parseInt(textFieldPrice.getText()));
                             refreshUser();
                             try {
                                 baseAdmin.changeDataInDB(user, arrOfTextFields);
