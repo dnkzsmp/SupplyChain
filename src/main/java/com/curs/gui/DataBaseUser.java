@@ -8,13 +8,18 @@ import java.sql.*;
 public class DataBaseUser extends JFrame {
     public DataBaseUser() throws SQLException {
         super("База данных запросов");
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int i, int i1) {
+                return false;
+            }
+        };
         model.addColumn("ID");
-        model.addColumn("Name");
-        model.addColumn("Surname");
-        model.addColumn("Age");
-        model.addColumn("Email");
-        model.addColumn("Brand");
+        model.addColumn("Имя");
+        model.addColumn("Фамилия");
+        model.addColumn("Возраст");
+        model.addColumn("Почта");
+        model.addColumn("Цена");
         pack();
         Connection connection = null;
         try {
@@ -30,19 +35,20 @@ public class DataBaseUser extends JFrame {
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
-                        resultSet.getString(3),
                         resultSet.getString(4),
-                        resultSet.getString(5)
+                        resultSet.getString(5),
+                        resultSet.getString(6)
                 });
             }
             JTable table = new JTable(model);
+            table.setColumnSelectionAllowed(false);
+            table.setRowSelectionAllowed(false);
             JScrollPane scrollPane = new JScrollPane(table);
             Container container = this.getContentPane();
             container.add(scrollPane);
             this.pack();
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setDefaultCloseOperation(HIDE_ON_CLOSE);
             setResizable(true);
-            setVisible(true);
         } catch (Exception ex) {
             System.out.println("Ошибка подключения к БД (DataBaseUser.constructor)");
             ex.printStackTrace();
