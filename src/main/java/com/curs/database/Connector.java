@@ -1,5 +1,7 @@
 package com.curs.database;
 
+import java.sql.SQLException;
+
 public interface Connector {
-    void connectToDataBase();
+    void updateTable() throws SQLException;
 }
