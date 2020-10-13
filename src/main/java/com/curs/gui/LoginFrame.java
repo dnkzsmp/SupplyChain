@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 
 public class LoginFrame extends JFrame {
     public LoginFrame() {
@@ -43,8 +42,7 @@ public class LoginFrame extends JFrame {
                     case "user":
                         if (textFieldPassword.getText().equals("user")) {
                             setVisible(false);
-                            JFrame frame = new UserFrame();
-                            frame.setVisible(true);
+                            new UserFrame().setVisible(true);
                         } else {
                             labelCorrect.setText("Неверный пароль");
                             labelCorrect.setForeground(Color.red);
@@ -53,17 +51,16 @@ public class LoginFrame extends JFrame {
                     case "admin":
                         if (textFieldPassword.getText().equals("admin")) {
                             setVisible(false);
-                            JFrame admin = null;
-                            admin.setVisible(true);
+                            new AdminFrame().setVisible(true);
                         } else {
                             labelCorrect.setText("Неверный пароль");
                             labelCorrect.setForeground(Color.red);
                         }
                         break;
-                    case "shopper":
-                        if (textFieldPassword.getText().equals("shopper")) {
+                    case "provider":
+                        if (textFieldPassword.getText().equals("provider")) {
                             setVisible(false);
-                            //UserFrame two = new UserFrame();
+                            new ProviderFrame().setVisible(true);
                         } else {
                             labelCorrect.setText("Неверный пароль");
                             labelCorrect.setForeground(Color.red);
@@ -85,9 +82,7 @@ public class LoginFrame extends JFrame {
         panel.add(textFieldPassword);
         panel.add(button);
         panel.add(labelCorrect);
-
         setContentPane(panel);
-
         setLocationRelativeTo(null);
         setResizable(false);
     }
