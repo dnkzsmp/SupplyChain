@@ -5,14 +5,14 @@ public class User {
     private String surname;
     private int age;
     private String email;
-    private String brand;
+    private int price;
 
-    public User(String name, String surname, int age, String email, String brand) {
+    public User(String name, String surname, int age, String email, int price) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.email = email;
-        this.brand = brand;
+        this.price = price;
     }
 
     public void setName(String name) {
@@ -31,8 +31,8 @@ public class User {
         this.email = email;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getName() {
@@ -51,7 +51,7 @@ public class User {
         return email;
     }
 
-    public String getBrand() {
-        return brand;
+    public int getPrice() {
+        return price;
     }
 }
