@@ -13,27 +13,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserFrame extends JFrame {
-    private JPanel panelTop;
-    private JPanel panelLeft;
-    private JPanel panelRight;
     private JList listOfUsers;
     private JTextField textFieldName;
     private JTextField textFieldSurname;
     private JTextField textFieldAge;
     private JTextField textFieldEmail;
-    private JTextField textFieldBrand;
+    private JTextField textFieldPrice;
     private JButton buttonSend;
-    private JLabel labelName;
-    private JLabel labelSurname;
-    private JLabel Age;
-    private JLabel labelEmail;
-    private JLabel labelBrand;
     private JPanel panelMain;
     private JButton buttonSave;
     private JButton buttonExit;
     private JLabel labelAlert;
+    private JButton buttonShow;
+    private JPanel panelTop;
+    private JPanel panelLeft;
+    private JPanel panelRight;
+    private JLabel labelName;
+    private JLabel labelSurname;
+    private JLabel labelAge;
+    private JLabel labelEmail;
+    private JLabel labelPrice;
     private final ArrayList<User> people;
-    private final String [] arrOfTF = new String[5];
+    private final String [] arrOfTextFields = new String[5];
     private final DefaultListModel listPeopleModel;
 
     public UserFrame() {
@@ -52,25 +53,25 @@ public class UserFrame extends JFrame {
                 int userNumber = listOfUsers.getSelectedIndex();
                 if (userNumber >= 0) {
                     if (!textFieldAge.getText().isEmpty() &&
-                            !textFieldBrand.getText().isEmpty() &&
+                            !textFieldPrice.getText().isEmpty() &&
                             !textFieldEmail.getText().isEmpty() &&
                             !textFieldName.getText().isEmpty() &&
                             !textFieldSurname.getText().isEmpty()) {
-                        if (isNumber(textFieldAge.getText())) {
-                            arrOfTF[0] = textFieldName.getText();
-                            arrOfTF[1] = textFieldSurname.getText();
-                            arrOfTF[2] = textFieldAge.getText();
-                            arrOfTF[3] = textFieldEmail.getText();
-                            arrOfTF[4] = textFieldBrand.getText();
-                            User u = people.get(userNumber);
-                            u.setName(textFieldName.getText());
-                            u.setSurname(textFieldSurname.getText());
-                            u.setAge(Integer.parseInt(textFieldAge.getText()));
-                            u.setEmail(textFieldEmail.getText());
-                            u.setBrand(textFieldBrand.getText());
+                        if (isNumber(textFieldAge.getText()) && isNumber(textFieldPrice.getText())) {
+                            arrOfTextFields[0] = textFieldName.getText();
+                            arrOfTextFields[1] = textFieldSurname.getText();
+                            arrOfTextFields[2] = textFieldAge.getText();
+                            arrOfTextFields[3] = textFieldEmail.getText();
+                            arrOfTextFields[4] = textFieldPrice.getText();
+                            User user = people.get(userNumber);
+                            user.setName(textFieldName.getText());
+                            user.setSurname(textFieldSurname.getText());
+                            user.setAge(Integer.parseInt(textFieldAge.getText()));
+                            user.setEmail(textFieldEmail.getText());
+                            user.setPrice(Integer.parseInt(textFieldPrice.getText()));
                             refreshUser();
                             try {
-                                baseAdmin.changeDataInDB(u, arrOfTF);
+                                baseAdmin.changeDataInDB(user, arrOfTextFields);
                             } catch (SQLException ex) {
                                 ex.printStackTrace();
                             }
@@ -93,7 +94,7 @@ public class UserFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 User user;
                 if (!textFieldAge.getText().isEmpty() &&
-                        !textFieldBrand.getText().isEmpty() &&
+                        !textFieldPrice.getText().isEmpty() &&
                         !textFieldEmail.getText().isEmpty() &&
                         !textFieldName.getText().isEmpty() &&
                         !textFieldSurname.getText().isEmpty()) {
@@ -103,7 +104,7 @@ public class UserFrame extends JFrame {
                                 textFieldSurname.getText(),
                                 Integer.parseInt(textFieldAge.getText()),
                                 textFieldEmail.getText(),
-                                textFieldBrand.getText()
+                                Integer.parseInt(textFieldPrice.getText())
                         );
                         try {
                             baseAdmin.setNewUserInDB(user);
@@ -118,6 +119,16 @@ public class UserFrame extends JFrame {
                 } else {
                     labelAlert.setText("Ошибка: заполните все поля");
                     labelAlert.setForeground(Color.red);
+                }
+            }
+        });
+        buttonShow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new DataBaseUser().setVisible(true);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
                 }
             }
         });
@@ -138,7 +149,7 @@ public class UserFrame extends JFrame {
                             textFieldSurname.setText(u.getSurname());
                             textFieldAge.setText(Integer.toString(u.getAge()));
                             textFieldEmail.setText(u.getEmail());
-                            textFieldBrand.setText(u.getBrand());
+                            textFieldPrice.setText(Integer.toString(u.getPrice()));
                             buttonSave.setEnabled(true);
                         } else {
                     buttonSave.setEnabled(false);
@@ -162,7 +173,7 @@ public class UserFrame extends JFrame {
         refreshUser();
     }
 
-    public boolean isNumber(String str) {
+    private boolean isNumber(String str) {
         if (str == null || str.isEmpty()) return false;
         for (int i = 0; i < str.length(); i++) {
             if (!Character.isDigit(str.charAt(i))) return false;
