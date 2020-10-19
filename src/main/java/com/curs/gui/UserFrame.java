@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import static com.curs.user.User.isNumber;
+
 public class UserFrame extends JFrame {
     private JList listOfUsers;
     private JTextField textFieldName;
@@ -34,7 +36,7 @@ public class UserFrame extends JFrame {
     private JLabel labelEmail;
     private JLabel labelPrice;
     private final ArrayList<User> people;
-    private final String [] arrOfTextFields = new String[5];
+    private final String[] arrOfTextFields = new String[5];
     private final DefaultListModel listPeopleModel;
 
     public UserFrame() {
@@ -139,14 +141,14 @@ public class UserFrame extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 int userNumber = listOfUsers.getSelectedIndex();
                 if (userNumber >= 0) {
-                            User u = people.get(userNumber);
-                            textFieldName.setText(u.getName());
-                            textFieldSurname.setText(u.getSurname());
-                            textFieldAge.setText(Integer.toString(u.getAge()));
-                            textFieldEmail.setText(u.getEmail());
-                            textFieldPrice.setText(Integer.toString(u.getPrice()));
-                            buttonSave.setEnabled(true);
-                        } else {
+                    User u = people.get(userNumber);
+                    textFieldName.setText(u.getName());
+                    textFieldSurname.setText(u.getSurname());
+                    textFieldAge.setText(Integer.toString(u.getAge()));
+                    textFieldEmail.setText(u.getEmail());
+                    textFieldPrice.setText(Integer.toString(u.getPrice()));
+                    buttonSave.setEnabled(true);
+                } else {
                     buttonSave.setEnabled(false);
                 }
             }
@@ -166,13 +168,5 @@ public class UserFrame extends JFrame {
     private void addUser(User user) {
         people.add(user);
         refreshUser();
-    }
-
-    private boolean isNumber(String str) {
-        if (str == null || str.isEmpty()) return false;
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) return false;
-        }
-        return true;
     }
 }

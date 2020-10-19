@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import static com.curs.user.User.isNumber;
+
 public class ProviderFrame extends JFrame {
     private JPanel panelMain;
     private JPanel panelTop;
@@ -160,15 +162,5 @@ public class ProviderFrame extends JFrame {
         combo.addItem(new Year("2018", 5));
         combo.addItem(new Year("2019", 6));
         combo.addItem(new Year("2020", 7));
-    }
-
-    private boolean isNumber(String str) {
-        if (str == null || str.isEmpty())
-            return false;
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i)))
-                return false;
-        }
-        return true;
     }
 }

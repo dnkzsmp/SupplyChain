@@ -31,7 +31,7 @@ public class DataBaseUser extends JFrame {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                model.addRow(new Object[] {
+                model.addRow(new Object[]{
                         resultSet.getString(1),
                         resultSet.getString(2),
                         resultSet.getString(3),

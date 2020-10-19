@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import static com.curs.user.User.isNumber;
+
 public class AdminFrame extends JFrame {
     private JButton buttonProvider;
     private JButton buttonUser;
@@ -72,13 +74,5 @@ public class AdminFrame extends JFrame {
                 }
             }
         });
-    }
-
-    private boolean isNumber(String str) {
-        if (str == null || str.isEmpty()) return false;
-        for (int i = 0; i < str.length(); i++) {
-            if (!Character.isDigit(str.charAt(i))) return false;
-        }
-        return true;
     }
 }

@@ -40,8 +40,7 @@ class VerticalLayout implements LayoutManager {
         }
     }
 
-    private Dimension calculateBestSize(Container c)
-    {
+    private Dimension calculateBestSize(Container c) {
         // Вычисление длины контейнера
         Component[] list = c.getComponents();
         int maxWidth = 0;
