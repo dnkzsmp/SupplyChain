@@ -44,7 +44,7 @@ public class DBaseUA implements Connector {
         }
     }
 
-    public void changeDataInDB(User user, String [] arr) throws SQLException {
+    public void changeDataInDB(User user, String[] arr) throws SQLException {
         try {
             System.out.println("Устанавливаем соединение с БД");
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
